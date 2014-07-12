@@ -1,4 +1,4 @@
-///@brief P76 & 78 练习6.2-5和6.3-1
+///@brief 练习6.2-5和6.3-1
 ///@brief 最大堆 
 ///@param array_int	保存有需要维护的整数数组
 ///@param i	需要维护的元素下标
@@ -76,7 +76,7 @@ void MaxHeapifyRecur(int* array_int, int heap_size, int i)
 ///@param i 待维护的结点下标
 void MaxHeapifyIter(int* array_int, int heap_size, int i)
 {
-	while( i <= (heap_size - 1)/2)
+	while( i < (heap_size - 1)/2)	//注意：这里不能是小于等于号，否则有可能陷入死循环（主函数中的测试数据）
 	{
 		int l = Left(i);
 		int r = Right(i);
