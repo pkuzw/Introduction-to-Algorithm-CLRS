@@ -1,4 +1,4 @@
-///@brief 练习6.2-5和6.3-1
+///@brief P76 & 78 练习6.2-5和6.3-1
 ///@brief 最大堆 
 ///@param array_int	保存有需要维护的整数数组
 ///@param i	需要维护的元素下标
@@ -101,9 +101,9 @@ void MaxHeapifyIter(int* array_int, int heap_size, int i)
 
 int main()
 {
-	int a[8] = {5, 3, 17, 10, 84, 19, 6, 22};
+	int a[9] = {5, 3, 17, 10, 84, 19, 6, 22, 9};
 	cout << "整理前的最大堆：	";
-	for(int i = 0; i < 8; i++)
+	for(int i = 0; i < 9; i++)
 	{
 		cout << a[i] << ' ';
 	}
@@ -112,10 +112,10 @@ int main()
 	//MaxHeapifyRecur(a, 14, 2);
 	for(int i = 3; i >= 0; i--)
 	{
-		MaxHeapifyIter(a, 8, i);
+		MaxHeapifyIter(a, 9, i);
 
 		cout << "整理" << 4-i << "次后的最大堆：	";
-		for(int j = 0; j < 8; j++)
+		for(int j = 0; j < 9; j++)
 		{
 			cout << a[j] << ' ';
 		}
