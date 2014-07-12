@@ -76,7 +76,7 @@ void MaxHeapifyRecur(int* array_int, int heap_size, int i)
 ///@param i 待维护的结点下标
 void MaxHeapifyIter(int* array_int, int heap_size, int i)
 {
-	while( i < (heap_size - 1)/2)	//注意：这里不能是小于等于号，否则有可能陷入死循环（主函数中的测试数据）
+	while( i < (heap_size - 1)/2)	//注意：这里不能是小于等于号，否则有可能陷入死循环（主函数中的测试数据就会出这种错误）
 	{
 		int l = Left(i);
 		int r = Right(i);
