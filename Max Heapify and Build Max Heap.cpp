@@ -14,7 +14,7 @@ using namespace std;
 ///@return 返回左孩子的下标
 int Left(int i)
 {
-	return i*2 + 1;
+	return i*2 + 1;	//与算法导论中的伪代码不同
 }
 
 ///@brief 计算下标为i的右孩子
@@ -22,7 +22,7 @@ int Left(int i)
 ///@return 返回右孩子的下标
 int Right(int i)
 {
-	return i*2 + 2;
+	return i*2 + 2; //与算法导论中的伪代码不同
 }
 
 ///@brief 计算下标为i的父节点
@@ -30,7 +30,7 @@ int Right(int i)
 ///@return 返回父节点的下标
 int Parent(int i)
 {
-	return (i - 1) / 2;
+	return (i - 1) / 2;	//与算法导论中的伪代码不同
 }
 
 
