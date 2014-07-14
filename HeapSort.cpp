@@ -40,7 +40,7 @@ void swap(int& a, int& b)
 
 ///@brief 维护最大堆
 ///@param arr 待维护的数组指针
-///@param heap_size 堆大小
+///@param heap_size 堆大小(堆中最后一个元素的下标。在伪代码中是n，在c++中是n-1，因为数组从0开始计数)
 ///@param i 开始维护的起点坐标
 void MaxHeapify(int* arr, int heap_size, const int i)
 {
@@ -63,7 +63,7 @@ void MaxHeapify(int* arr, int heap_size, const int i)
 
 ///@brief 建立最大堆
 ///@param arr 数组指针
-///@param heap_size 堆大小
+///@param heap_size 堆大小(堆中最后一个元素的下标。在伪代码中是n，在c++中是n-1，因为数组从0开始计数)
 ///@author zhaowei
 ///@date 2014.07.14
 void BuildMaxHeap(int* arr, int heap_size)
@@ -77,14 +77,13 @@ void BuildMaxHeap(int* arr, int heap_size)
 
 ///@brief 堆排序
 ///@param arr 数组指针
-///@param heap_size 堆大小
-///@param arr_len 数组大小
+///@param heap_size 堆大小(堆中最后一个元素的下标。在伪代码中是n，在c++中是n-1，因为数组从0开始计数)
 ///@author zhaowei
 ///@date 2014.07.14
 void HeapSort(int* arr, int heap_size)
 {
 	BuildMaxHeap(arr, heap_size);
-	for(int i = heap_size-1; i > 0; i--)
+	for(int i = heap_size; i > 0; i--)
 	{
 		swap(arr[0], arr[i]);
 		heap_size--;
@@ -103,7 +102,7 @@ int main()
 	for(int i = 0; i < array_count; i++)
 		cin >> array_i[i];
 
-	HeapSort(array_i, array_count);
+	HeapSort(array_i, array_count-1);
 
 	cout << "输出排好序后的数组： ";
 	for(int i = 0; i < array_count; i++)
