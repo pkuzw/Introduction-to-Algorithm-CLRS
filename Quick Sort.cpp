@@ -74,5 +74,6 @@ int main()
 	for(int i = 0; i < array_size; i++)
 		cout << array_int[i] << " ";
 	cout << endl;
+	delete []array_int;
 	return 0;
 }
