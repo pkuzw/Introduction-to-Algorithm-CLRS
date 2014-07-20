@@ -6,7 +6,7 @@
 using namespace std;
 
 ///@brief 计算左孩子下标
-///@param 结点下标
+///@param i 结点下标
 ///@return 左孩子下标
 ///@author zhaowei
 ///@date 2014.07.14
@@ -16,7 +16,7 @@ int Left(int i)
 }
 
 ///@brief 计算右孩子下标
-///@param 结点下标
+///@param i 结点下标
 ///@return 右孩子下标
 ///@author zhaowei
 ///@date 2014.07.14
