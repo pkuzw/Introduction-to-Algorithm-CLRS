@@ -137,8 +137,25 @@ void MaxHeapInsert(int* arr, int& heap_size, const int key)
 
 int main()
 {
+	int heap_size = 0;
+	int arr_count = 0;
+	cout << "输入最大值优先队列大小： ";
+	cin >> arr_count;
 
-  	return 0;
+	int *arr = new int[arr_count];
+	cout << "依次输入数组元素： " ;
+	for(int i = 0; i < arr_count; i++)
+	{
+		cin >> arr[i];
+		MaxHeapInsert(arr, heap_size, arr[i]);
+	}
+
+	cout << "输出最大值优先队列的元素： ";
+	for(int i = 0; i < arr_count; i++)
+		cout << arr[i] << " ";
+	cout << endl;
+	delete []arr;
+	return 0;
 }
 
 
