@@ -55,8 +55,6 @@ int Partition(int* arr, const int p, const int r)
 	return i+1;
 }
 
-
-
 ///@brief 用递归实现快速排序
 ///@param arr 数组指针
 ///@param p	数组起始下标
