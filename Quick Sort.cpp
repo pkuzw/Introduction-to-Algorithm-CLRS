@@ -24,8 +24,23 @@ void swap(int& a, int& b)
 ///@return 返回分割后数组的中轴值
 ///@author zhaowei
 ///@date 2014.07.15
+
+///@brief 添加如果数组元素全部一致，则返回中间那个元素下标。以前的代码会返回最后一个元素下表。
+///@author zhaowei
+///@date 2014.07.22
 int Partition(int* arr, const int p, const int r)
 {
+	//添加判断数组元素是否全部一致的代码
+	int count = 1;
+	for(int k = p; k < r; k++)
+	{
+		if(arr[k] == arr[k + 1])
+			count++;
+	}
+	if(count == r - p + 1)
+		return (p + r) / 2;
+
+	//原代码
 	int x = arr[r];
 	int i = p-1;
 	for(int j = p; j < r; j++)
@@ -60,17 +75,17 @@ void QuickSort(int* arr, const int p, const int r)
 int main()
 {
 	int array_size = 0;
-	cout << "输入数组大小：	";
+	cout << "Output array size: ";
 	cin >> array_size;
 
 	int* array_int = new int[array_size];
-	cout << "输入数组元素：	";
+	cout << "Input integers: ";
 	for(int i = 0; i < array_size; i++)
 		cin >> array_int[i];
 
 	QuickSort(array_int, 0, array_size-1);
 
-	cout << "排序后的数组：	";
+	cout << "Sorted array: ";
 	for(int i = 0; i < array_size; i++)
 		cout << array_int[i] << " ";
 	cout << endl;
