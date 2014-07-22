@@ -55,6 +55,25 @@ int Partition(int* arr, const int p, const int r)
 	return i+1;
 }
 
+
+
+///@brief 用递归实现快速排序
+///@param arr 数组指针
+///@param p	数组起始下标
+///@param r 数组终止下标
+///@author zhaowei
+///@date 2014.07.15
+void QuickSort(int* arr, const int p, const int r)
+{
+	if(p < r)
+	{
+		int q = Partition(arr, p, r);
+		QuickSort(arr, p, q-1);
+		QuickSort(arr, q+1, r);
+	}
+	return;
+}
+
 ///@brief 非増序版Partition函数
 ///@param arr 数组指针
 ///@param p 起始元素下标
@@ -105,23 +124,6 @@ void QuickSortDesc(int* arr, const int p, const int r)
 	return;
 }
 
-///@brief 用递归实现快速排序
-///@param arr 数组指针
-///@param p	数组起始下标
-///@param r 数组终止下标
-///@author zhaowei
-///@date 2014.07.15
-void QuickSort(int* arr, const int p, const int r)
-{
-	if(p < r)
-	{
-		int q = Partition(arr, p, r);
-		QuickSort(arr, p, q-1);
-		QuickSort(arr, q+1, r);
-	}
-	return;
-}
-
 int main()
 {
 	int array_size = 0;
@@ -135,10 +137,10 @@ int main()
 
 	QuickSort(array_int, 0, array_size-1);
 
-	cout << "Ascendingly sorted array : ";
+	cout << "Ascendingly sorted array: ";
 	for(int i = 0; i < array_size; i++)
 		cout << array_int[i] << " ";
-	cout << endl;
+	cout << endl;	
 
 	QuickSortDesc(array_int, 0, array_size-1);
 
