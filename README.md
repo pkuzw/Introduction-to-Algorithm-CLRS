@@ -1,6 +1,6 @@
 Introduction-to-Algorithm-CLRS
 ==============================
 
-Practice after reasding some chapters.
+Practice after reading chapters in CLRS.
 
-I wrote some exercise after read some chapters in CLRS. I hope it's useful for me in the future.
+I wrote these exercise after studying some chapters in CLRS. I hope it's helpful for my programming skills.
