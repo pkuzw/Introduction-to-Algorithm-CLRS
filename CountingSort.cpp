@@ -1,4 +1,4 @@
-﻿///@brief CountingSort implementation
+﻿///@brief 实现计数排序伪代码
 ///@author zhaowei
 ///@date 2014.07.26
 #include<iostream>
