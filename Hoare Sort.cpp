@@ -1,5 +1,5 @@
-///@file Hoare Sort.cpp
-///@biref ÓÃHoare»®·ÖÀ´½øĞĞ¿ìËÙÅÅĞò
+ï»¿///@file Hoare Sort.cpp
+///@biref ç”¨Hoareåˆ’åˆ†æ¥è¿›è¡Œå¿«é€Ÿæ’åº
 ///@author zhaowei
 ///@date 2014.07.29
 ///@version 1.0
@@ -7,8 +7,8 @@
 #include <iostream>
 using namespace std;
 
-///@brief ½»»»Á½¸öÕûĞÍ±äÁ¿
-///@param a, b ´ı½»»»µÄÁ½¸öÔªËØ
+///@brief äº¤æ¢ä¸¤ä¸ªæ•´å‹å˜é‡
+///@param a, b å¾…äº¤æ¢çš„ä¸¤ä¸ªå…ƒç´ 
 ///@author zhaowei
 ///@date 2014.07.29
 ///@version 1.0
@@ -20,11 +20,11 @@ void swap(int& a, int& b)
 	return;
 }
 
-///@brief Hoare»®·Ö
-///@param arr Êı×éÖ¸Õë
-///@param p Êı×éÆğÊ¼ÏÂ±ê
-///@param r Êı×éÖÕÖ¹ÏÂ±ê
-///@return ·µ»ØÏÂ±êj£¬Ê¹µÃarr[p..j]ÖĞµÄÃ¿¸öÔªËØ¶¼²»´óÓÚarr[j+1..r]ÖĞµÄÈÎÒ»ÔªËØ
+///@brief Hoareåˆ’åˆ†
+///@param arr æ•°ç»„æŒ‡é’ˆ
+///@param p æ•°ç»„èµ·å§‹ä¸‹æ ‡
+///@param r æ•°ç»„ç»ˆæ­¢ä¸‹æ ‡
+///@return è¿”å›ä¸‹æ ‡jï¼Œä½¿å¾—arr[p..j]ä¸­çš„æ¯ä¸ªå…ƒç´ éƒ½ä¸å¤§äºarr[j+1..r]ä¸­çš„ä»»ä¸€å…ƒç´ 
 ///@author zhaowei
 ///@date 2014.07.29
 ///@version 1.0
@@ -52,10 +52,10 @@ int HoarePartition(int* arr, const int p, const int r)
 	}
 }
 
-///@brief Hoare¿ìËÙÅÅĞò
-///@param arr Êı×éÖ¸Õë
-///@param p Êı×éÆğÊ¼ÏÂ±ê
-///@param r Êı×éÖÕÖ¹ÏÂ±ê 
+///@brief Hoareå¿«é€Ÿæ’åº
+///@param arr æ•°ç»„æŒ‡é’ˆ
+///@param p æ•°ç»„èµ·å§‹ä¸‹æ ‡
+///@param r æ•°ç»„ç»ˆæ­¢ä¸‹æ ‡ 
 ///@author zhaowei
 ///@date 2014.07.29
 ///@version 1.0
@@ -81,7 +81,7 @@ int main()
 	for(int i = 0; i < array_size; i++)
 		cin >> array_int[i];
 
-	//²âÊÔHoare¿ìËÙÅÅĞòÉıĞòÊä³ö
+	//æµ‹è¯•Hoareå¿«é€Ÿæ’åºå‡åºè¾“å‡º
 	HoareQuickSort(array_int, 0, array_size-1);
 
 	cout << "Ascendingly Hoare quick-sorted array: ";
