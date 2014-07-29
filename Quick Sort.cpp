@@ -187,6 +187,24 @@ void RandomQuickSort(int* arr, const int p, const int r)
 	return;
 }
 
+///@brief 实现《算法导论》P95思考题7-4的伪代码。用迭代取代原本Quick Sort算法中的第二次递归。
+///@param arr 数组指针
+///@param p 数组起始下标
+///@param r 数组终止下标
+///@author zhaowei
+///@date 2014.07.29
+///@version 1.0
+void QuickSortTailRecur(int* arr, int p, int r)
+{
+	while (p < r)
+	{
+		int q = Partition(arr, p, r);
+		QuickSortTailRecur(arr, p, q-1);
+		p = q+1;
+	}
+	return;
+}
+
 int main()
 {
 	int array_size = 0;
@@ -218,6 +236,14 @@ int main()
 	RandomQuickSort(array_int, 0, array_size-1);
 
 	cout << "Randomized quick sorted array : ";
+	for(int i = 0; i < array_size; i++)
+		cout << array_int[i] << " ";
+	cout << endl;
+
+	//测试尾递归版本的快速排序升序输出
+	QuickSortTailRecur(array_int, 0, array_size-1);
+
+	cout << "Tail recursively quick sorted array : ";
 	for(int i = 0; i < array_size; i++)
 		cout << array_int[i] << " ";
 	cout << endl;
