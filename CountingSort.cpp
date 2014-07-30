@@ -26,6 +26,7 @@ void CountingSort(int* a, int* b, const int a_size, int k)
 	for(int i = 1; i < k+1; i++)
 		c[i] += c[i-1];
 	
+	//稳定排序
 	//按照临时数组c中统计的小于等于i元素数量，将a数组中的元素放入b数组
 	for(int j = a_size-1; j >= 0; j--)
 	{
@@ -33,6 +34,15 @@ void CountingSort(int* a, int* b, const int a_size, int k)
 		c[a[j]]--;	//为了避免出现重复出现的元素放入同一位置，每次放入b数组后将其在临时数组中的计数值自减1
 	}
 
+/*
+	//不稳定排序
+	//按照临时数组c中统计的小于等于i元素数量，将a数组中的元素放入b数组
+	for(int j = 0; j <= a_size-1; j++)
+	{
+		b[c[a[j]] - 1] = a[j];	//注意：c[a[j]] - 1是因为数组b的起始下标为0.在《算法导论》中数组的起始下标为1
+		c[a[j]]--;	//为了避免出现重复出现的元素放入同一位置，每次放入b数组后将其在临时数组中的计数值自减1
+	}
+*/
 	delete []c;
 	return ;
 }
