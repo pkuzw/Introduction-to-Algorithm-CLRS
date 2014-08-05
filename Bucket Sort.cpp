@@ -128,29 +128,22 @@ double* BucketSort(double* dbl_arr, const int arr_len, const int bucket_num)
 			if(dbl_arr[i] >= low_bound && dbl_arr[i] < up_bound)
 			{
 				BucketNode* crnt_node_ptr = buckets[j];
-				//处理插入桶中第一个元素
-				if(crnt_node_ptr->GetNextNode() == NULL && crnt_node_ptr->GetPrevNode() == NULL && crnt_node_ptr->GetValue() == -1)
+				BucketNode* new_node = new BucketNode;
+				new_node->SetValue(dbl_arr[i]);
+				while(new_node->GetValue() >= crnt_node_ptr->GetValue())
 				{
-					crnt_node_ptr->SetValue(dbl_arr[i]);
-				}
-				if(crnt_node_ptr->GetValue() != -1)
-				{
-					BucketNode* new_node = new BucketNode;
-					new_node->SetValue(dbl_arr[i]);
-					while(new_node->GetValue() >= crnt_node_ptr->GetValue())
+					if(crnt_node_ptr->GetNextNode() != NULL)
+						crnt_node_ptr = crnt_node_ptr->GetNextNode();
+					else
 					{
-						if(crnt_node_ptr->GetNextNode() != NULL)
-							crnt_node_ptr = crnt_node_ptr->GetNextNode();
-						else
-						{
-							crnt_node_ptr->AddNextNode(new_node);
-						}
+						crnt_node_ptr->AddNextNode(new_node);
+						break;	//已找到相应的链表插入位置，结束while循环
 					}
-					crnt_node_ptr->AddPrevNode(new_node);
 				}
+				crnt_node_ptr->AddPrevNode(new_node);
+				break;	//已找到相应桶，结束内层循环
 			}
-		}
-		
+		}		
 	}
 
 	double* sorted_arr = new double[arr_len];
@@ -158,11 +151,13 @@ double* BucketSort(double* dbl_arr, const int arr_len, const int bucket_num)
 	for(int i = 0; i < bucket_num; i++)
 	{
 		BucketNode* cur_node_ptr = buckets[i];
-		while(cur_node_ptr->GetNextNode() != NULL)
+		while(cur_node_ptr->GetNextNode() != NULL && cur_node_ptr->GetNextNode()->GetValue() != -1)
 		{
-			sorted_arr[k++] = cur_node_ptr->GetValue();
+			sorted_arr[k++] = cur_node_ptr->GetNextNode()->GetValue();	//因为首结点是头节点，不含实际数据
 			cur_node_ptr = cur_node_ptr->GetNextNode();
 		}		
+		if(cur_node_ptr->GetValue() != -1)
+			sorted_arr[k] = cur_node_ptr->GetValue();
 	}
 
 	return sorted_arr;
