@@ -110,14 +110,12 @@ double* BucketSort(double* dbl_arr, const int arr_len, const int bucket_num)
 {
 	BucketNode** buckets = new BucketNode*[bucket_num];
 
-	/*
+	
 	for(int i = 0; i < bucket_num; i++)
 	{		
-		buckets[i]->SetPrevNode(NULL);	//将每个桶链表中第一个元素的头指针设为空
-		buckets[i]->SetNextNode(NULL);	//将每个桶链表中第一个元素的尾指针设为空
-		buckets[i]->SetValue(-1);
+		buckets[i] = new BucketNode;	//将每个桶链表中第一个元素初始化
 	}
-	*/
+	
 	for(int i = 0; i < arr_len; i++)
 	{
 		//根据元素值大小放入相应桶中
