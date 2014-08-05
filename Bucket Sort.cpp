@@ -130,6 +130,7 @@ double* BucketSort(double* dbl_arr, const int arr_len, const int bucket_num)
 				BucketNode* crnt_node_ptr = buckets[j];
 				BucketNode* new_node = new BucketNode;
 				new_node->SetValue(dbl_arr[i]);
+				bool flag = false;
 				while(new_node->GetValue() >= crnt_node_ptr->GetValue())
 				{
 					if(crnt_node_ptr->GetNextNode() != NULL)
@@ -137,10 +138,13 @@ double* BucketSort(double* dbl_arr, const int arr_len, const int bucket_num)
 					else
 					{
 						crnt_node_ptr->AddNextNode(new_node);
+						crnt_node_ptr = crnt_node_ptr->GetNextNode();
+						flag = true;
 						break;	//已找到相应的链表插入位置，结束while循环
 					}
 				}
-				crnt_node_ptr->AddPrevNode(new_node);
+				if(!flag)	// 当第一次插入链表时，不允许在头元素之前再插入元素
+					crnt_node_ptr->AddPrevNode(new_node);
 				break;	//已找到相应桶，结束内层循环
 			}
 		}		
