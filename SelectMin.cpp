@@ -40,4 +40,5 @@ int main()
 	cout << "数组中的最小数： ";
 	cout << SelectMin(arr, arr_len) << endl;
 	delete []arr;
+	return 0;
 }

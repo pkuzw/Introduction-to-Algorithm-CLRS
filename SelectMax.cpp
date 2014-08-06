@@ -38,4 +38,5 @@ int main()
 	cout << SelectMax(arr, arr_len) << endl;
 	delete []arr;
 
+	return 0;
 }
