@@ -1,4 +1,4 @@
-///@file ÕÒ³öÊı×éÖĞµÄ×îĞ¡Öµ
+ï»¿///@file æ‰¾å‡ºæ•°ç»„ä¸­çš„æœ€å°å€¼
 ///@author zhaowei
 ///@date 2014.08.06
 ///@version 1.0
@@ -6,10 +6,10 @@
 #include <iostream>
 using namespace std;
 
-///@brief ÕÒ³öÊı×éÖĞµÄ×îĞ¡Öµ
-///@param arr Êı×éÖ¸Õë
-///@param arr_len Êı×é³¤¶È
-///@return ·µ»ØÊı×éÖĞµÄ×îĞ¡Öµ
+///@brief æ‰¾å‡ºæ•°ç»„ä¸­çš„æœ€å°å€¼
+///@param arr æ•°ç»„æŒ‡é’ˆ
+///@param arr_len æ•°ç»„é•¿åº¦
+///@return è¿”å›æ•°ç»„ä¸­çš„æœ€å°å€¼
 ///@version 1.0
 ///@author zhaowei
 ///@date 2014.08.06
@@ -26,18 +26,18 @@ int SelectMin(int* arr, const int arr_len)
 
 int main()
 {
-	cout << "ÊäÈëÊı×éµÄ´óĞ¡£º ";
+	cout << "è¾“å…¥æ•°ç»„çš„å¤§å°ï¼š ";
 	int arr_len = 0;
 	cin >> arr_len;
 
-	cout << "ÊäÈëÊı×é£º ";
+	cout << "è¾“å…¥æ•°ç»„ï¼š ";
 	int* arr = new int[arr_len];
 	for(int i = 0; i < arr_len; i++)
 	{
 		cin >> arr[i];
 	}
 
-	cout << "Êı×éÖĞµÄ×îĞ¡Êı£º ";
+	cout << "æ•°ç»„ä¸­çš„æœ€å°æ•°ï¼š ";
 	cout << SelectMin(arr, arr_len) << endl;
 	delete []arr;
 	return 0;
