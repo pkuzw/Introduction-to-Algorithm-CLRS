@@ -1,7 +1,12 @@
-﻿///@file 利用RandomPartition方法实现平均情况下O(n)的在数组中找出第k大的元素
+﻿///@file 利用RandomPartition方法实现平均情况下O(n)的在数组中找出第K小的元素
 ///@author zhaowei
 ///@date 2014.08.07
 ///@version 1.0
+
+///@file 添加迭代版的随机化选择第K小的数的方法
+///@author zhaowei
+///@date 2014.08.09
+///@version 1.1
 
 #include <iostream>
 #include <ctime>
@@ -82,12 +87,12 @@ int RandomPartion(int* arr, int p, int r)
 	return Partition(arr, p, r);
 }
 
-///@brief 选取数组中第k大的元素
+///@brief 选取数组中第K小的元素
 ///@param arr 数组指针
 ///@param p 数组起始下标
 ///@param r 数组终止下标
-///@param k 想要获取的元素排序大小
-///@return 返回数组中第k大的元素
+///@param i 想要获取的元素排序大小
+///@return 返回数组中第K小的元素
 ///@author zhaowei
 ///@date 2014.08.07
 ///@version 1.0
@@ -108,6 +113,37 @@ int SelectKthNumber(int* arr, int p, int r, int i)
 
 	else
 		return SelectKthNumber(arr, q+1, r, i-k);
+}
+
+///@brief 迭代版选取第K小的数
+///@param arr 数组指针
+///@param p 数组起始下标
+///@param r 数组终止下标
+///@param i 想要选取的数组中第K小的数
+///@author zhaowei
+///@date 2014.08.09
+///@version 1.0
+int SelectKthNumberIter(int* arr, int p, int r, int i)
+{
+	int q = 0;
+	while(p < r)
+	{
+		q = RandomPartion(arr, p, r);
+		int k = q - p + 1;
+
+		if(i == k)
+			return arr[q];
+
+		else if(i < k)
+			r = q - 1;	//调低上限，元素排位不变
+
+		else
+		{
+			p = q + 1;	//调高下限
+			i = i - k;	//相应调整在新子数组中的元素排位
+		}
+	}
+	return arr[p];
 }
 
 int main()
@@ -136,7 +172,12 @@ int main()
 		}
 
 
-		cout << "数组中第" << k << "大的元素是： " << SelectKthNumber(arr, 0, arr_len-1, k) << endl;
+		cout << "用递归版选择函数后，数组中第";
+		cout << k << "小的元素是： " << SelectKthNumber(arr, 0, arr_len-1, k) << endl;
+
+		cout << "用迭代版选择函数后，数组中第";
+		cout << k << "小的元素是： " << SelectKthNumberIter(arr, 0, arr_len-1, k) << endl;
+
 		cout << endl;
 	}
 	delete []arr;
