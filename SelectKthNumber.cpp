@@ -9,6 +9,7 @@
 ///@version 1.1
 
 ///@file 在划分子数组时，确保选择的是5个一组的子数组的中位数的中位数，这样在最坏情况下，算法的时间复杂度不超过O(n)
+//       这个程序实现目前还有问题，不能正常运行。会循环递归直至Stack Overflow.
 ///@author zhaowei
 ///@date 2014.08.11
 ///@version 1.2
@@ -175,12 +176,12 @@ void AssignArrayElem(ArrayElem& a, ArrayElem& b)
 ///@version 1.0
 void InsertionSort(ArrayElem* arr_struct, int p, int r)
 {
-	for(int j = p+1; j < r-p+1; j++)
+	for(int j = p+1; j <= r; j++)
 	{
 		int i = j-1;
 		ArrayElem tmp;
-		AssignArrayElem(arr_struct[i], tmp);
-		while(i >= 0 && arr_struct[i].value > tmp.value)
+		AssignArrayElem(arr_struct[j], tmp);
+		while(i >= p && arr_struct[i].value > tmp.value)
 		{
 			AssignArrayElem(arr_struct[i], arr_struct[i+1]);
 			i--;
@@ -206,7 +207,7 @@ ArrayElem SelectKthElement(ArrayElem* arr, int p, int r, int sub_arr_size, int i
 	if(p == r)
 		return arr[p];
 	ArrayElem median = SelectMedian(arr, p, r, sub_arr_size);
-	int k = median.index - arr[p].index + 1;
+	int k = median.index - arr[p].index + 1;	//问题在这里，递归时元素的下标已经改变了
 	if(i == k)
 		return median;
 	else if(i < k)
@@ -237,7 +238,11 @@ ArrayElem SelectMedian(ArrayElem* arr, int p, int r, int sub_arr_size)
 	}
 	
 	//先对按照sub_arr_size划分好的若干子数组进行插入排序
-	int sub_arr_num = (arr_len / sub_arr_size) + 1;
+	int sub_arr_num = 0;
+	if(arr_len % sub_arr_size == 0)
+		sub_arr_num = arr_len / sub_arr_size;
+	else
+		sub_arr_num = arr_len / sub_arr_size + 1;
 	for(int i = 0; i < sub_arr_num - 1; i++)
 	{
 		InsertionSort(arr_struct, p + i * sub_arr_size, p + (i + 1) * sub_arr_size - 1);
@@ -308,10 +313,10 @@ int main()
 		cout << k << "小的元素是： " << SelectKthNumberIter(arr, 0, arr_len-1, k) << endl;		
 		cout << endl;
 
-		ArrayElem rslt = SelectKthElement(arr_arr_elem, 0, arr_len-1, sub_arr_size, k);
-		cout << "用选中位数的中位数方法分割子数组，数组中第";
-		cout << k << "小的元素是： " << rslt.value << "。它在原始数组中的下标是： " << rslt.index << endl;		
-		cout << endl;
+// 		ArrayElem rslt = SelectKthElement(arr_arr_elem, 0, arr_len-1, sub_arr_size, k);
+// 		cout << "用选中位数的中位数方法分割子数组，数组中第";
+// 		cout << k << "小的元素是： " << rslt.value << "。它在原始数组中的下标是： " << rslt.index << endl;		
+// 		cout << endl;
 
 
 
