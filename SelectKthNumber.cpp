@@ -8,6 +8,11 @@
 ///@date 2014.08.09
 ///@version 1.1
 
+///@file 在划分子数组时，确保选择的是5个一组的子数组的中位数的中位数，这样在最坏情况下，算法的时间复杂度不超过O(n)
+///@author zhaowei
+///@date 2014.08.11
+///@version 1.2
+
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -145,6 +150,118 @@ int SelectKthNumberIter(int* arr, int p, int r, int i)
 	}
 	return arr[p];
 }
+
+///@brief 保存数组下标和数组值的临时结构体
+///@author zhaowei
+///@date 2014.08.11
+///@version 1.0
+struct ArrayElem
+{
+	int value;
+	int index;
+};
+
+///@brief 将一个ArrayElem变量的值赋给另一个ArrayElem变量
+///@param a 赋值的ArrayElem变量
+///@param b 被赋值的ArrayElem变量
+///@author zhaowei
+///@date 2014.08.11
+///@version 1.0
+void AssignArrayElem(ArrayElem& a, ArrayElem& b)
+{
+	b.value = a.value;
+	b.index = a.index;
+}
+
+///@brief 对ArrayElem结构体类型的数组进行插入排序，比较的键值是原始数组中的值大小
+///@param arr_struct
+///@param p 数组起始下标
+///@param r 数组终止下标
+///@author zhaowei
+///@date 2014.08.11
+///@version 1.0
+void InsertionSort(ArrayElem* arr_struct, int p, int r)
+{
+	for(int j = p+1; j < r-p+1; j++)
+	{
+		int i = j-1;
+		ArrayElem tmp;
+		AssignArrayElem(arr_struct[i], tmp);
+		while(i >= 0 && arr_struct[i].value > tmp.value)
+		{
+			AssignArrayElem(arr_struct[i], arr_struct[i+1]);
+			i--;
+		}
+		AssignArrayElem(tmp, arr_struct[i+1]);
+	}
+	return;
+}
+
+///@brief 选出若干子数组的中位数的中位数
+///@param arr 数组指针
+///@param p 数组起始下标
+///@param r 数组终止下标
+///@param sub_arr_size 子数组大小
+///@return 返回子数组的中位数的中位数的下标
+///@author zhaowei
+///@date 2014.08.11
+///@version 1.0
+ArrayElem SelectMedian(ArrayElem* arr, int p, int r, int sub_arr_size)
+{
+	//将原数组的值连通其数组下标一起保存在临时结构体数组中，便于最后返回中位数的中位数在原始数组中的下标
+	int arr_len = r - p + 1;
+	
+	ArrayElem* arr_struct = new ArrayElem[arr_len];
+	
+	for(int i = 0; i < arr_len; i++)
+	{
+		AssignArrayElem(arr[p + i], arr_struct[i]);
+	}
+	
+	//先对按照sub_arr_size划分好的若干子数组进行插入排序
+	int sub_arr_num = (arr_len / sub_arr_size) + 1;
+	for(int i = 0; i < sub_arr_num - 1; i++)
+	{
+		InsertionSort(arr_struct, p + i * sub_arr_size, p + (i + 1) * sub_arr_size - 1);
+	}
+	//处理最后一个子数组，分为两种情况：能够被子数组大小整除和不能够被子数组大小整除
+	int last_sub_arr_len = arr_len % sub_arr_size;
+
+	if(last_sub_arr_len == 0)
+		InsertionSort(arr_struct, r - sub_arr_size + 1, r);
+	else
+		InsertionSort(arr_struct, r - last_sub_arr_len + 1, r);
+
+	//将子数组的中位数放入新开辟的动态数组arr_median
+	ArrayElem* arr_median = new ArrayElem[sub_arr_num];
+	for(int i = 0; i < sub_arr_num - 1; i++)
+		arr_median[i] = arr_struct[p + i * sub_arr_size + (sub_arr_size - 1) / 2];
+
+	if(last_sub_arr_len == 0)
+		arr_median[sub_arr_num - 1] = arr_struct[r - sub_arr_size / 2];
+	else
+		arr_median[sub_arr_num - 1] = arr_struct[r - last_sub_arr_len / 2];
+	
+	//递归调用选取第K大元素方法，来选出中位数数组的中位数
+	return SelectKthElement(arr_median, 0, sub_arr_num - 1, , sub_arr_size, (sub_arr_num - 1) / 2);
+}
+
+///@brief 选择第K大的元素
+///@param arr 数组指针
+///@param p 数组起始下标
+///@param r 数组终止下标
+///@param sub_arr_size 子数组大小
+///@param median 中位数排位
+///@return 返回第K大元素
+///@author zhaowei
+///@date 2014.08.11
+///@version 1.0
+ArrayElem SelectKthElement(ArrayElem* arr, int p, int r, int sub_arr_size, int median)
+{
+
+}
+
+
 
 int main()
 {
