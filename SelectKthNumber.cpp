@@ -207,7 +207,7 @@ ArrayElem SelectKthElement(ArrayElem* arr, int p, int r, int sub_arr_size, int i
 	if(p == r)
 		return arr[p];
 	ArrayElem median = SelectMedian(arr, p, r, sub_arr_size);
-	int k = median.index - arr[p].index + 1;	//问题在这里，递归时元素的下标已经改变了
+	int k = median.index - arr[p].index + 1;	//问题在这里，递归时元素的下标已经改变了.
 	if(i == k)
 		return median;
 	else if(i < k)
