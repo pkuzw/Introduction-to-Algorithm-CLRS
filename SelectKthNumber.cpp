@@ -16,6 +16,7 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include "SelectKthNumber.h"
 
 using namespace std;
 
@@ -151,15 +152,7 @@ int SelectKthNumberIter(int* arr, int p, int r, int i)
 	return arr[p];
 }
 
-///@brief 保存数组下标和数组值的临时结构体
-///@author zhaowei
-///@date 2014.08.11
-///@version 1.0
-struct ArrayElem
-{
-	int value;
-	int index;
-};
+
 
 ///@brief 将一个ArrayElem变量的值赋给另一个ArrayElem变量
 ///@param a 赋值的ArrayElem变量
@@ -195,6 +188,31 @@ void InsertionSort(ArrayElem* arr_struct, int p, int r)
 		AssignArrayElem(tmp, arr_struct[i+1]);
 	}
 	return;
+}
+
+
+///@brief 选择第K大的元素
+///@param arr 数组指针
+///@param p 数组起始下标
+///@param r 数组终止下标
+///@param sub_arr_size 子数组大小
+///@param i 想要选择的元素的排位
+///@return 返回第K大元素
+///@author zhaowei
+///@date 2014.08.11
+///@version 1.0
+ArrayElem SelectKthElement(ArrayElem* arr, int p, int r, int sub_arr_size, int i)
+{
+	if(p == r)
+		return arr[p];
+	ArrayElem median = SelectMedian(arr, p, r, sub_arr_size);
+	int k = median.index - arr[p].index + 1;
+	if(i == k)
+		return median;
+	else if(i < k)
+		return SelectKthElement(arr, p, median.index - 1, sub_arr_size, i);
+	else
+		return SelectKthElement(arr, median.index + 1, r, sub_arr_size, i - k);
 }
 
 ///@brief 选出若干子数组的中位数的中位数
@@ -243,23 +261,9 @@ ArrayElem SelectMedian(ArrayElem* arr, int p, int r, int sub_arr_size)
 		arr_median[sub_arr_num - 1] = arr_struct[r - last_sub_arr_len / 2];
 	
 	//递归调用选取第K大元素方法，来选出中位数数组的中位数
-	return SelectKthElement(arr_median, 0, sub_arr_num - 1, , sub_arr_size, (sub_arr_num - 1) / 2);
+	return SelectKthElement(arr_median, 0, sub_arr_num - 1, sub_arr_size, (sub_arr_num - 1) / 2);
 }
 
-///@brief 选择第K大的元素
-///@param arr 数组指针
-///@param p 数组起始下标
-///@param r 数组终止下标
-///@param sub_arr_size 子数组大小
-///@param median 中位数排位
-///@return 返回第K大元素
-///@author zhaowei
-///@date 2014.08.11
-///@version 1.0
-ArrayElem SelectKthElement(ArrayElem* arr, int p, int r, int sub_arr_size, int median)
-{
-
-}
 
 
 
@@ -270,11 +274,18 @@ int main()
 	cin >> arr_len;
 
 	int* arr = new int[arr_len];
+	ArrayElem* arr_arr_elem = new ArrayElem[arr_len];
 	cout << "输入数组元素： ";
 	for(int i = 0; i < arr_len; i++)
 	{
 		cin >> arr[i];
+		arr_arr_elem[i].value = arr[i];
+		arr_arr_elem[i].index = i;
 	}
+
+	int sub_arr_size = 0;
+	cout << "输入子数组的大小： ";
+	cin >> sub_arr_size;
 
 	while(1)
 	{
@@ -291,11 +302,19 @@ int main()
 
 		cout << "用递归版选择函数后，数组中第";
 		cout << k << "小的元素是： " << SelectKthNumber(arr, 0, arr_len-1, k) << endl;
+		cout << endl;
 
 		cout << "用迭代版选择函数后，数组中第";
-		cout << k << "小的元素是： " << SelectKthNumberIter(arr, 0, arr_len-1, k) << endl;
-
+		cout << k << "小的元素是： " << SelectKthNumberIter(arr, 0, arr_len-1, k) << endl;		
 		cout << endl;
+
+		ArrayElem rslt = SelectKthElement(arr_arr_elem, 0, arr_len-1, sub_arr_size, k);
+		cout << "用选中位数的中位数方法分割子数组，数组中第";
+		cout << k << "小的元素是： " << rslt.value << "。它在原始数组中的下标是： " << rslt.index << endl;		
+		cout << endl;
+
+
+
 	}
 	delete []arr;
 	return 0;
