@@ -6,6 +6,10 @@
 #include <iostream>
 using namespace std;
 
+///@brief 栈结构体，利用数组维护一个栈
+///@author zhaowei
+///@date 2014.08.15
+///@version 1.0
 struct stack
 {
 	int* stck;		//模拟栈的数组指针
@@ -58,7 +62,7 @@ int main()
 	cin >> stk_size;
 
 	stack* stk = new stack;
-	int* arr = new int[stk_size + 1];
+	int* arr = new int[stk_size + 1];	//stack[0]不存放数据，这样就能够通过top ?= 0来判断栈是否为空，因此多申请一个整型变量的内存空间
 	for(int k = 0; k < stk_size+1; k++)
 	{
 		arr[k] = 0;
@@ -79,6 +83,8 @@ int main()
 		cin >> val_in;
 	} while (PushStack(stk, val_in));
 
+	cout << "----------------------------------------------------" << endl;
+
 	int val_out = 0;
 	int j = 1;
 	while (PopStack(stk, val_out))
@@ -87,7 +93,7 @@ int main()
 		cout << val_out << endl;
 	}
 
-	delete arr;
+	delete []arr;
 	delete stk;
 	return 0;
 }
