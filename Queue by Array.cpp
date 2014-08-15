@@ -3,6 +3,10 @@
 ///@date 2014.08.15
 ///@version 1.0
 
+///@file 修改主函数中的显示部分，更好的来观察队列的状态
+///@author zhaowei
+///@date 2014.08.15
+///@version 1.1
 
 #include <iostream>
 using namespace std;
@@ -63,6 +67,34 @@ bool PopQueue(queue* q, int& val)
 	return true;
 }
 
+///@brief 判断队列是否已满
+///@param q 队列指针
+///@return 如果队列已满，返回true；否则返回false
+///@author zhaowei
+///@date 2014.08.15
+///@version 1.0
+bool IsQueueFull(queue* q)
+{
+	if(q->head == (q->tail + 1) % (q->capacity + 1))
+		return true;
+	else
+		return false;
+}
+
+///@brief 判断队列是否为空
+///@param q 队列指针
+///@return 如果队列为空，返回true；否则返回false
+///@author zhaowei
+///@date 2014.08.15
+///@version 1.0
+bool IsQueueEmpty(queue* q)
+{
+	if(q->head == q->tail)
+		return true;
+	else
+		return false;
+}
+
 int main()
 {
 	cout << "输入队列大小： ";
@@ -79,6 +111,7 @@ int main()
 	q->tail = 0;
 	q->que = arr;
 
+	/*
 	int val_in = 0;
 	int i = 1;
 	do 
@@ -98,7 +131,70 @@ int main()
 	while(PopQueue(q, val_out))
 	{
 		cout << "输出第" << j++ << "个出队元素： ";
-		cout << val_out << endl;
+		cout << val_out << endl; 
+	}
+	*/
+
+	int input_output = 0;	//如果intput == 0，则入队；如果input == 1，则出队
+	cout << "入队还是出队？ 请输入（0：入队；1：出队）： ";
+	while(cin >> input_output)
+	{
+		if(input_output == 0)
+		{
+			int input = 0;			
+			
+			if(!IsQueueFull(q))
+			{
+				cout << "输入入队元素： ";
+				cin >> input;
+				PushQueue(q, input);
+			}
+			else
+			{
+				cout << "队列已满，无法入队。" << endl;
+			}
+
+			cout << "此时队列所含元素如下： ";
+			int queue_index = q->head;
+			while(queue_index != q->tail)
+			{				
+				cout << q->que[queue_index] << " ";
+				if(queue_index == q->capacity)
+					queue_index = 0;
+				else
+					queue_index++;
+			}
+			cout << endl;
+		}
+
+		else
+		{
+			int output = 0;
+			
+			if(!IsQueueEmpty(q))
+			{
+				cout << "输出出队元素： ";				
+				PopQueue(q, output);
+				cout << output << endl;
+			}
+			else
+			{
+				cout << "队列已空，无法出队。" << endl;
+			}
+
+			cout << "此时队列所含元素如下： ";
+			int queue_index = q->head;
+			while(queue_index != q->tail)
+			{				
+				cout << q->que[queue_index] << " ";
+				if(queue_index == q->capacity)
+					queue_index = 0;
+				else
+					queue_index++;
+			}
+			cout << endl;			
+		}
+		cout << "入队还是出队？ 请输入（0：入队；1：出队）： ";
 	}
 
 	delete []arr;
