@@ -8,6 +8,11 @@
 ///@date 2014.08.15
 ///@version 1.1
 
+///@file 合并主函数中部分代码。在每次操作后的展示队列元素的代码不必要写两次。每次输出后增加空行，让队列元素的显示更加美观易读
+///@author zhaowei
+///@date 2014.08.15
+///@version 1.2
+
 #include <iostream>
 using namespace std;
 
@@ -100,6 +105,7 @@ int main()
 	cout << "输入队列大小： ";
 	int queue_size = 0;
 	cin >> queue_size;
+	cout << "----------------------------------------------------" << endl;
 
 	queue* q = new queue;
 	int* arr = new int[queue_size + 1];
@@ -153,18 +159,6 @@ int main()
 			{
 				cout << "队列已满，无法入队。" << endl;
 			}
-
-			cout << "此时队列所含元素如下： ";
-			int queue_index = q->head;
-			while(queue_index != q->tail)
-			{				
-				cout << q->que[queue_index] << " ";
-				if(queue_index == q->capacity)
-					queue_index = 0;
-				else
-					queue_index++;
-			}
-			cout << endl;
 		}
 
 		else
@@ -180,20 +174,22 @@ int main()
 			else
 			{
 				cout << "队列已空，无法出队。" << endl;
-			}
-
-			cout << "此时队列所含元素如下： ";
-			int queue_index = q->head;
-			while(queue_index != q->tail)
-			{				
-				cout << q->que[queue_index] << " ";
-				if(queue_index == q->capacity)
-					queue_index = 0;
-				else
-					queue_index++;
-			}
-			cout << endl;			
+			}				
 		}
+
+		cout << "此时队列所含元素如下： ";
+		int queue_index = q->head;
+		while(queue_index != q->tail)
+		{				
+			cout << q->que[queue_index] << " ";
+			if(queue_index == q->capacity)
+				queue_index = 0;
+			else
+				queue_index++;
+		}
+		cout << endl;
+		cout << "----------------------------------------------------" << endl;
+
 		cout << "入队还是出队？ 请输入（0：入队；1：出队）： ";
 	}
 
