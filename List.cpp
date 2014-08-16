@@ -40,7 +40,7 @@ listNode* ListSearch(listNode* list_head, int key)
 ///@author zhaowei
 ///@date 2014.08.16
 ///@version 1.0
-void ListInsert(listNode* list_head, listNode* new_node)
+void ListInsertToHead(listNode* list_head, listNode* new_node)
 {
 	new_node->next = list_head;
 	new_node->prev = nullptr;
@@ -53,6 +53,35 @@ void ListInsert(listNode* list_head, listNode* new_node)
 	return ;
 }
 
+///@brief 在指定结点前插入新结点
+///@param list_head 链表指针
+///@param new_node 新结点指针
+///@param key 插入位置之后的结点键值，如果有多个相同键值的结点，则认为是最靠近链表首部的结点
+///@return 如果链表包含待插入结点的位置（即后一个结点的键值存在），返回true；否则返回false
+///@author zhaowei
+///@date 2014.08.16
+///@version 1.0
+bool ListInsert(listNode* list_head, listNode* new_node, int key)
+{
+	listNode* x = list_head;
+	while(x != nullptr && key != x->val)
+		x = x->next;
+	
+	if(x == nullptr)
+		return false;
+
+	else
+	{
+		new_node->next = x;
+		new_node->prev = x->prev;
+
+		x->prev = new_node;
+		new_node->prev->next = x;
+		return true;
+	}
+
+}
+
 ///@brief 删除链表中的结点
 ///@param list_head 链表指针
 ///@param delete_node 待删除的结点
@@ -61,5 +90,8 @@ void ListInsert(listNode* list_head, listNode* new_node)
 ///@version 1.0
 void ListDelete(listNode* list_head, listNode* delete_node)
 {
+	if(delete_node->prev != nullptr)
+	{
 
+	}
 }
