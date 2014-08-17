@@ -91,7 +91,13 @@ bool ListInsert(listNode* list_head, listNode* new_node, int key)
 void ListDelete(listNode* list_head, listNode* delete_node)
 {
 	if(delete_node->prev != nullptr)
-	{
+		delete_node->prev->next = delete_node->next;
+	
+	else
+		list_head = delete_node->next;
 
-	}
+	if(delete_node->next != nullptr)
+		delete_node->next->prev = delete_node->prev;
+
+	return;
 }
