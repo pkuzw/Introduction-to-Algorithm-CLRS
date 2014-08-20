@@ -50,7 +50,6 @@ listNode* ListInsertToHead(listNode* list_head, listNode* new_node)
 	}
 	list_head = new_node;	
 	new_node->prev = nullptr;
-	
 	return list_head;
 }
 
@@ -77,7 +76,15 @@ listNode* ListInsert(listNode* list_head, listNode* new_node, int key)
 		new_node->prev = x->prev;
 
 		x->prev = new_node;
-		new_node->prev->next = new_node;
+        if (new_node->prev != nullptr)
+        {
+            new_node->prev->next = new_node;
+        }
+        else
+        {
+            list_head = new_node;
+        }
+		
 		return list_head;
 	}
 
