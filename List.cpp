@@ -86,7 +86,7 @@ bool ListInsert(listNode* list_head, listNode* new_node, int key)
 ///@param list_head 链表指针
 ///@param delete_node 待删除的结点
 ///@author zhaowei
-///@date 2014.08.16
+///@date 2014.08.17
 ///@version 1.0
 void ListDelete(listNode* list_head, listNode* delete_node)
 {
