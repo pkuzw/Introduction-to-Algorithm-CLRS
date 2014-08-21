@@ -1,4 +1,4 @@
-﻿﻿///@file 编写双向非循环链表的基本操作。包括借点查找、插入结点、删除结点
+﻿///@file 编写双向非循环链表的基本操作。包括借点查找、插入结点、删除结点
 ///@author zhaowei
 ///@date 2014.08.18
 ///@version 1.2
@@ -116,7 +116,6 @@ listNode* ListDelete(listNode* list_head, listNode* delete_node)
 	}
 
 }
-
 int main()
 {	
 	listNode* list_head = nullptr;
@@ -165,7 +164,7 @@ int main()
 
 		else
 		{
-			cout << "输入想要删除的结点键值： ";
+		cout << "输入想要删除的结点键值： ";
 			int delete_val = 0;
 			cin >> delete_val;
 
