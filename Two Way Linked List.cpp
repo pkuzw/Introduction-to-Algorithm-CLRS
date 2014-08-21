@@ -1,7 +1,7 @@
 ﻿///@file 编写双向非循环链表的基本操作。包括借点查找、插入结点、删除结点
 ///@author zhaowei
-///@date 2014.08.18
-///@version 1.2
+///@date 2014.08.19
+///@version 1.3
 
 #include<iostream>
 using namespace std;
