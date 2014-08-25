@@ -62,12 +62,15 @@ listNode* ListInsertBeforeNode(listNode* list_head, listNode* new_node, int node
     else
     {
         listNode* list_index = list_head;
-        while (list_index->next != nominated_node)
+        while (list_index->next != nominated_node && list_index->next != nullptr)
         {
             list_index = list_index->next;
         }
         new_node->next = nominated_node;
-        list_index->next = new_node;
+        if(list_index == nominated_node)
+            list_head = new_node;
+        else
+            list_index->next = new_node;
         return list_head;
     }
 }
@@ -81,7 +84,28 @@ listNode* ListInsertBeforeNode(listNode* list_head, listNode* new_node, int node
 ///@version 1.0
 listNode* ListDelete(listNode* list_head, int node_key)
 {
-    
+    listNode* delete_node = ListSearch(list_head, node_key);
+    if(delete_node == nullptr)
+    {
+        return nullptr;
+    }
+    else
+    {
+        listNode* list_index = list_head;
+        if(list_head == delete_node)
+        {
+            list_head = list_head->next;
+        }
+        else
+        {
+            while (list_index->next != delete_node && list_index->next != nullptr)
+            {
+                list_index = list_index->next;
+            }
+            list_index->next = delete_node->next;
+        }
+        return list_head;
+    }
 }
 
 #include <iostream>
@@ -89,6 +113,70 @@ using namespace std;
 
 int main()
 {
+    listNode* list_head = nullptr;
+    
+    cout << "请选择插入结点或者删除结点（0:插入结点；1:删除结点）：";
+    int insert_delete = 0;
+    while(cin >> insert_delete)
+    {
+        if(insert_delete == 0)
+        {
+            listNode* new_node = new listNode;
+            new_node->next = nullptr;
+            new_node->val = -1;
+
+            int before_key_or_head = 0;
+            cout << "请选择是在链表首部插入结点或者在指定结点前插入结点（0:首部插入；1:指定插入）：";
+            cin >> before_key_or_head;
+            
+            cout << "请输入新结点的键值：";
+            int new_node_key = -1;
+            cin >> new_node_key;
+            new_node->val = new_node_key;
+            
+            if(before_key_or_head == 0)
+            {
+                list_head = ListInsertBeforeHead(list_head, new_node);
+                if(list_head == nullptr)
+                    cout << "插入失败。" << endl;
+            }
+            else
+            {
+                cout << "请选择要插入的位置：";
+                int key_val = -1;
+                cin >> key_val;
+                list_head = ListInsertBeforeNode(list_head, new_node, key_val);
+            }
+        }
+        else
+        {
+            cout << "请选择删除结点的键值：";
+            int delete_key = -1;
+            cin >> delete_key;
+            list_head = ListDelete(list_head, delete_key);
+        }
+        
+        cout << "目前链表中所含元素：";
+        listNode* list_index = list_head;
+        
+        if(list_index == nullptr)
+            cout << "null" << endl;
+        
+        else
+        {
+        
+            while(list_index->next != nullptr)
+            {
+                cout << list_index->val << " ";
+                list_index = list_index->next;
+            }
+            cout << list_index-> val << endl;
+        }
+        cout << "----------------------------------------------" << endl;
+        cout << "请选择插入结点或者删除结点（0:插入结点；1:删除结点）：";
+    }
+    
+    
 	return 0;
 }
 
