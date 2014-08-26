@@ -127,33 +127,77 @@ int main()
 
             int before_key_or_head = 0;
             cout << "请选择是在链表首部插入结点或者在指定结点前插入结点（0:首部插入；1:指定插入）：";
-            cin >> before_key_or_head;
-            
-            cout << "请输入新结点的键值：";
-            int new_node_key = -1;
-            cin >> new_node_key;
-            new_node->val = new_node_key;
-            
-            if(before_key_or_head == 0)
+            while(cin >> before_key_or_head)
             {
-                list_head = ListInsertBeforeHead(list_head, new_node);
-                if(list_head == nullptr)
-                    cout << "插入失败。" << endl;
+                if(before_key_or_head > 1 || before_key_or_head < 0)
+                {
+                    cout << "输入无效选项，请重新输入。" << endl;
+                    cout << "请选择是在链表首部插入结点或者在指定结点前插入结点（0:首部插入；1:指定插入）：";
+                    continue;
+                }
+                else
+                {
+                    cout << "请输入新结点的键值：";
+                    int new_node_key = -1;
+                    cin >> new_node_key;
+                    new_node->val = new_node_key;
+                    
+                    if(before_key_or_head == 0)
+                    {
+                       list_head = ListInsertBeforeHead(list_head, new_node);
+                        break;  //成功插入后应该跳出询问在链表首部还是指定结点前插入的循环
+                    }
+                    else if(before_key_or_head == 1)
+                    {
+                        cout << "请选择要插入的位置：";
+                        int key_val = -1;
+                        
+                        while(cin >> key_val)
+                        {
+                            listNode* is_exist = ListSearch(list_head, key_val);
+                            if (is_exist == nullptr)
+                            {
+                                cout << "该结点不存在，请重新选择插入位置：";
+                            }
+                            else
+                            {
+                                list_head = ListInsertBeforeNode(list_head, new_node, key_val);
+                                break;
+                            }
+                        }
+                        break;  //成功插入后应该跳出询问在链表首部还是指定结点前插入的循环
+                        
+                    }
+
+                }
             }
-            else
+        }
+        
+        else if(insert_delete == 1)
+        {
+            cout << "请选择删除结点的键值：";
+            int delete_key = -1;
+            
+            while(cin >> delete_key)
             {
-                cout << "请选择要插入的位置：";
-                int key_val = -1;
-                cin >> key_val;
-                list_head = ListInsertBeforeNode(list_head, new_node, key_val);
+                listNode* is_exist = ListSearch(list_head, delete_key);
+                if (is_exist == nullptr)
+                {
+                    cout << "该结点不存在，请重新选择要删除的结点：";
+                }
+                else
+                {
+                    list_head = ListDelete(list_head, delete_key);
+                    break;
+                }
             }
         }
         else
         {
-            cout << "请选择删除结点的键值：";
-            int delete_key = -1;
-            cin >> delete_key;
-            list_head = ListDelete(list_head, delete_key);
+            cout << "输入无效选项，请重新输入。" << endl;
+            cout << "----------------------------------------------" << endl;
+            cout << "请选择插入结点或者删除结点（0:插入结点；1:删除结点）：";
+            continue;
         }
         
         cout << "目前链表中所含元素：";
