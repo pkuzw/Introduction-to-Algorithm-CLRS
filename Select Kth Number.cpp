@@ -17,7 +17,7 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
-#include "SelectKthNumber.h"
+#include "Select Kth Number.h"
 
 using namespace std;
 
